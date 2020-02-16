@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package com.mmo4j.infrastructure.proto;
+
+option csharp_namespace = "MMO4J.Infrastructure.Proto";
+option java_package = "com.mmo4j.infrastructure.proto";
+
+message AuthCodesProto {
+    enum AuthCommand {
+        AC_AUTH_LOGON_CHALLENGE = 0;
+        AC_AUTH_LOGON_PROOF = 1;
+        AC_AUTH_RECONNECT_CHALLENGE = 2;
+        AC_AUTH_RECONNECT_PROOF = 3;
+        AC_REALM_LIST = 4;
+        AC_XFER_INITIATE = 5;
+        AC_XFER_DATA = 6;
+
+        // these opcodes no longer exist in currently supported client
+        AC_XFER_ACCEPT = 7;
+        AC_XFER_RESUME = 8;
+        AC_XFER_CANCEL = 9;
+    }
+
+    enum AuthServerCommand {
+        ASC_AUTH_CHALLENGE = 0;
+        ASC_AUTH_VERIFY = 1;
+        ASC_CONN_PING = 2;
+        ASC_CONN_PONG = 3;
+        ASC_HELLO = 4;
+        ASC_PROVE_SESSION = 5;
+        ASC_KICK = 6;
+        ASC_PC_WARNING = 7;
+        ASC_STRINGS = 8;
+        ASC_SUNKEN_UPDATE = 9;
+        ASC_SUNKEN_ONLINE = 10;
+    }
+
+    enum AuthResult {
+        AR_SUCCESS = 0;
+        AR_FAIL_UNKNOWN0 = 1; ///< ? Unable to connect
+        AR_FAIL_UNKNOWN1 = 2; ///< ? Unable to connect
+        AR_FAIL_BANNED = 3; ///< This <game> account has been closed and is no longer available for use. Please go to <site>/banned.html for further information.
+        AR_FAIL_UNKNOWN_ACCOUNT = 4; ///< The information you have entered is not valid. Please check the spelling of the account name and password. If you need help in retrieving a lost or stolen password, see <site> for more information
+        AR_FAIL_INCORRECT_PASSWORD = 5; ///< The information you have entered is not valid. Please check the spelling of the account name and password. If you need help in retrieving a lost or stolen password, see <site> for more information
+        AR_FAIL_ALREADY_ONLINE = 6; ///< This account is already logged into <game>. Please check the spelling and try again.
+        AR_FAIL_NO_TIME = 7; ///< You have used up your prepaid time for this account. Please purchase more to continue playing
+        AR_FAIL_DB_BUSY = 8; ///< Could not log in to <game> at this time. Please try again later.
+        AR_FAIL_VERSION_INVALID = 9; ///< Unable to validate game version. This may be caused by file corruption or interference of another program. Please visit <site> for more information and possible solutions to this issue.
+        AR_FAIL_VERSION_UPDATE = 10; ///< Downloading
+        AR_FAIL_INVALID_SERVER = 11; ///< Unable to connect
+        AR_FAIL_SUSPENDED = 12; ///< This <game> account has been temporarily suspended. Please go to <site>/banned.html for further information
+        AR_FAIL_FAIL_NO_ACCESS = 13; ///< Unable to connect
+        AR_SUCCESS_SURVEY = 14; ///< Connected.
+        AR_FAIL_PARENT_CONTROL = 15; ///< Access to this account has been blocked by parental controls. Your settings may be changed in your account preferences at <site>
+        AR_FAIL_LOCKED_ENFORCED = 16; ///< You have applied a lock to your account. You can change your locked status by calling your account lock phone number.
+        AR_FAIL_TRIAL_ENDED = 17; ///< Your trial subscription has expired. Please visit <site> to upgrade your account.
+        AR_FAIL_OVERMIND_CONVERTED = 18;
+        AR_FAIL_ANTI_INDULGENCE = 19;
+        AR_FAIL_EXPIRED = 20;
+        AR_FAIL_NO_GAME_ACCOUNT = 21;
+        AR_FAIL_BILLING_LOCK = 22;
+        AR_FAIL_AA_LOCK = 23;
+        AR_FAIL_UNLOCKABLE_LOCK = 24;
+        AR_FAIL_OTHER = 25;
+    }
+}

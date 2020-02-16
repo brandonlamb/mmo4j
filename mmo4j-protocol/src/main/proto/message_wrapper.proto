@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package com.mmo4j.infrastructure.proto;
+
+option csharp_namespace = "MMO4J.Infrastructure.Proto";
+option java_package = "com.mmo4j.infrastructure.proto";
+
+import "command.proto";
+import "event.proto";
+
+message MessageWrapper {
+    enum Type {
+        T_MOVE_PLAYER = 0;
+        T_PLAYER_MOVED = 1;
+        T_RETRIEVE_PLAYER_SETTINGS = 2;
+        T_PLAYER_SETTING_RETRIEVED = 3;
+        T_AUTHENTICATE_REQUEST = 4;
+        T_AUTHENTICATE_RESPONSE = 5;
+        T_LIST_REALMS_REQUEST = 6;
+        T_LIST_REALMS_RESPONSE = 7;
+    }
+
+    Type type = 1;
+
+    oneof command_event_oneof {
+        Command command = 2;
+        Event event = 3;
+    }
+}

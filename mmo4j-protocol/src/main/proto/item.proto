@@ -1,0 +1,149 @@
+syntax = "proto3";
+
+package com.mmo4j.infrastructure.proto;
+
+option csharp_namespace = "MMO4J.Infrastructure.Proto";
+option java_package = "com.mmo4j.infrastructure.proto";
+
+message ItemProto {
+    enum InventoryChangeFailure {
+        ICF_OK = 0;
+        ICF_CANT_EQUIP_LEVEL_I = 1;
+        ICF_ERR_CANT_EQUIP_SKILL = 2;
+        ICF_ITEM_DOESNT_GO_TO_SLOT = 3;
+        ICF_BAG_FULL = 4;
+        ICF_NONEMPTY_BAG_OVER_OTHER_BAG = 5;
+        ICF_CANT_TRADE_EQUIP_BAGS = 6;
+        ICF_ONLY_AMMO_CAN_GO_HERE = 7;
+        ICF_NO_REQUIRED_PROFICIENCY = 8;
+        ICF_NO_EQUIPMENT_SLOT_AVAILABLE = 9;
+        ICF_YOU_CAN_NEVER_USE_THAT_ITEM = 10;
+        ICF_YOU_CAN_NEVER_USE_THAT_ITEM2 = 11;
+        ICF_NO_EQUIPMENT_SLOT_AVAILABLE2 = 12;
+        ICF_CANT_EQUIP_WITH_TWO_HANDED = 13;
+        ICF_CANT_DUAL_WIELD = 14;
+        ICF_ITEM_DOESNT_GO_INTO_BAG = 15;
+        ICF_ITEM_DOESNT_GO_INTO_BAG2 = 16;
+        ICF_CANT_CARRY_MORE_OF_THIS = 17;
+        ICF_NO_EQUIPMENT_SLOT_AVAILABLE3 = 18;
+        ICF_ITEM_CANT_STACK = 19;
+        ICF_ITEM_CANT_BE_EQUIPPED = 20;
+        ICF_ITEMS_CANT_BE_SWAPPED = 21;
+        ICF_SLOT_IS_EMPTY = 22;
+        ICF_ITEM_NOT_FOUND = 23;
+        ICF_CANT_DROP_SOULBOUND = 24;
+        ICF_OUT_OF_RANGE = 25;
+        ICF_TRIED_TO_SPLIT_MORE_THAN_COUNT = 26;
+        ICF_COULD_NOT_SPLIT_ITEMS = 27;
+        ICF_MISSING_REAGENT = 28;
+        ICF_NOT_ENOUGH_MONEY = 29;
+        ICF_NOT_A_BAG = 30;
+        ICF_CAN_ONLY_DO_WITH_EMPTY_BAGS = 31;
+        ICF_DONT_OWN_THAT_ITEM = 32;
+        ICF_CAN_EQUIP_ONLY1_QUIVER = 33;
+        ICF_MUST_PURCHASE_THAT_BAG_SLOT = 34;
+        ICF_TOO_FAR_AWAY_FROM_BANK = 35;
+        ICF_ITEM_LOCKED = 36;
+        ICF_YOU_ARE_STUNNED = 37;
+        ICF_YOU_ARE_DEAD = 38;
+        ICF_CANT_DO_RIGHT_NOW = 39;
+        ICF_INT_BAG_ERROR = 40;
+        ICF_CAN_EQUIP_ONLY1_QUIVER2 = 41;
+        ICF_CAN_EQUIP_ONLY1_AMMO_POUCH = 42;
+        ICF_STACKABLE_CANT_BE_WRAPPED = 43;
+        ICF_EQUIPPED_CANT_BE_WRAPPED = 44;
+        ICF_WRAPPED_CANT_BE_WRAPPED = 45;
+        ICF_BOUND_CANT_BE_WRAPPED = 46;
+        ICF_UNIQUE_CANT_BE_WRAPPED = 47;
+        ICF_BAGS_CANT_BE_WRAPPED = 48;
+        ICF_ALREADY_LOOTED = 49;
+        ICF_INVENTORY_FULL = 50;
+        ICF_BANK_FULL = 51;
+        ICF_ITEM_IS_CURRENTLY_SOLD_OUT = 52;
+        ICF_BAG_FULL3 = 53;
+        ICF_ITEM_NOT_FOUND2 = 54;
+        ICF_ITEM_CANT_STACK2 = 55;
+        ICF_BAG_FULL4 = 56;
+        ICF_ITEM_SOLD_OUT = 57;
+        ICF_OBJECT_IS_BUSY = 58;
+        ICF_NONE = 59;
+        ICF_NOT_IN_COMBAT = 60;
+        ICF_NOT_WHILE_DISARMED = 61;
+        ICF_BAG_FULL6 = 62;
+        ICF_CANT_EQUIP_RANK = 63;
+        ICF_CANT_EQUIP_REPUTATION = 64;
+        ICF_TOO_MANY_SPECIAL_BAGS = 65;
+        ICF_LOOT_CANT_LOOT_THAT_NOW = 66;
+        ICF_ITEM_UNIQUE_EQUIPPABLE = 67;
+        ICF_VENDOR_MISSING_TURNINS = 68;
+        ICF_NOT_ENOUGH_HONOR_POINTS = 69;
+        ICF_NOT_ENOUGH_ARENA_POINTS = 70;
+        ICF_ITEM_MAX_COUNT_SOCKETED = 71;
+        ICF_MAIL_BOUND_ITEM = 72;
+        ICF_NO_SPLIT_WHILE_PROSPECTING = 73;
+        ICF_ITEM_MAX_COUNT_EQUIPPED_SOCKETED = 75;
+        ICF_ITEM_UNIQUE_EQUIPPABLE_SOCKETED = 76;
+        ICF_TOO_MUCH_GOLD = 77;
+        ICF_NOT_DURING_ARENA_MATCH = 78;
+        ICF_CANNOT_TRADE_THAT = 79;
+        ICF_PERSONAL_ARENA_RATING_TOO_LOW = 80; // probably exist more
+    }
+
+    enum BuyFailure {
+        BF_CANT_FIND_ITEM = 0;
+        BF_ITEM_ALREADY_SOLD = 1;
+        BF_NOT_ENOUGH_MONEY = 2;
+        BF_SELLER_DONT_LIKE_YOU = 3;
+        BF_DISTANCE_TOO_FAR = 4;
+        BF_ITEM_SOLD_OUT = 5;
+        BF_CANT_CARRY_MORE = 6;
+        BF_RANK_REQUIRE = 7;
+        BF_REPUTATION_REQUIRE = 8;
+    }
+
+    enum SellFailure {
+        SF_CANT_FIND_ITEM = 0;
+        SF_CANT_SELL_ITEM = 1; // merchant doesn't like that item
+        SF_CANT_FIND_VENDOR = 2; // merchant doesn't like you
+        SF_YOU_DONT_OWN_THAT_ITEM = 3; // you don't own that item
+        SF_UNK = 4; // nothing appears...
+        SF_ONLY_EMPTY_BAG = 5; // can only do with empty bags
+    }
+
+    // -1 from client enchantment slot number
+    enum EnchantmentSlot {
+        ES_PERM_ENCHANTMENT_SLOT = 0;
+        ES_TEMP_ENCHANTMENT_SLOT = 1;
+        ES_SOCK_ENCHANTMENT_SLOT = 2;
+        ES_SOCK_ENCHANTMENT_SLOT_2 = 3;
+        ES_SOCK_ENCHANTMENT_SLOT_3 = 4;
+        ES_BONUS_ENCHANTMENT_SLOT = 5;
+        ES_MAX_INSPECTED_ENCHANTMENT_SLOT = 6;
+        ES_PROP_ENCHANTMENT_SLOT_0 = 7; // used with RandomSuffix
+        ES_PROP_ENCHANTMENT_SLOT_1 = 8; // used with RandomSuffix
+        ES_PROP_ENCHANTMENT_SLOT_2 = 9; // used with RandomSuffix and RandomProperty
+        ES_PROP_ENCHANTMENT_SLOT_3 = 10; // used with RandomProperty
+        ES_PROP_ENCHANTMENT_SLOT_4 = 11; // used with RandomProperty
+        ES_MAX_ENCHANTMENT_SLOT = 12;
+    }
+
+    enum EnchantmentOffset {
+        EO_ID_OFFSET = 0;
+        EO_DURATION_OFFSET = 1;
+        EO_CHARGES_OFFSET = 2;
+    }
+
+    enum EnchantmentSlotMask {
+        ESM_CAN_SOULBOUND = 0;
+        ESM_UNK1 = 1;
+        ESM_UNK2 = 2;
+        ESM_UNK3 = 3;
+    }
+
+    enum ItemUpdateState {
+        IUS_UNCHANGED = 0;
+        IUS_CHANGED = 1;
+        IUS_NEW = 2;
+        IUS_REMOVED = 3;
+    }
+}

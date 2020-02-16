@@ -1,0 +1,468 @@
+syntax = "proto3";
+
+package com.mmo4j.infrastructure.proto;
+
+option csharp_namespace = "MMO4J.Infrastructure.Proto";
+option java_package = "com.mmo4j.infrastructure.proto";
+
+message ItemPrototypeProto {
+    enum ItemModType {
+        IMT_MANA = 0;
+        IMT_HEALTH = 1;
+        IMT_AGILITY = 3;
+        IMT_STRENGTH = 4;
+        IMT_INTELLECT = 5;
+        IMT_SPIRIT = 6;
+        IMT_STAMINA = 7;
+        IMT_DEFENSE_SKILL_RATING = 12;
+        IMT_DODGE_RATING = 13;
+        IMT_PARRY_RATING = 14;
+        IMT_BLOCK_RATING = 15;
+        IMT_HIT_MELEE_RATING = 16;
+        IMT_HIT_RANGED_RATING = 17;
+        IMT_HIT_SPELL_RATING = 18;
+        IMT_CRIT_MELEE_RATING = 19;
+        IMT_CRIT_RANGED_RATING = 20;
+        IMT_CRIT_SPELL_RATING = 21;
+        IMT_HIT_TAKEN_MELEE_RATING = 22;
+        IMT_HIT_TAKEN_RANGED_RATING = 23;
+        IMT_HIT_TAKEN_SPELL_RATING = 24;
+        IMT_CRIT_TAKEN_MELEE_RATING = 25;
+        IMT_CRIT_TAKEN_RANGED_RATING = 26;
+        IMT_CRIT_TAKEN_SPELL_RATING = 27;
+        IMT_HASTE_MELEE_RATING = 28;
+        IMT_HASTE_RANGED_RATING = 29;
+        IMT_HASTE_SPELL_RATING = 30;
+        IMT_HIT_RATING = 31;
+        IMT_CRIT_RATING = 32;
+        IMT_HIT_TAKEN_RATING = 33;
+        IMT_CRIT_TAKEN_RATING = 34;
+        IMT_RESILIENCE_RATING = 35;
+        IMT_HASTE_RATING = 36;
+        IMT_EXPERTISE_RATING = 37;
+    }
+
+    enum ItemSpellTriggerType {
+        ISTT_ON_USE = 0; // use after equip cooldown
+        ISTT_ON_EQUIP = 1;
+        ISTT_CHANCE_ON_HIT = 2;
+        ISTT_SOULSTONE = 4;
+        ISTT_ON_NO_DELAY_USE = 5; // no equip cooldown
+        ISTT_LEARN_SPELL_ID = 6; // used in item_template.spell_2 with spell_id with SPELL_GENERIC_LEARN in spell_1
+    }
+
+    enum ItemBondingType {
+        IBT_NO_BIND = 0;
+        IBT_BIND_WHEN_PICKED_UP = 1;
+        IBT_BIND_WHEN_EQUIPPED = 2;
+        IBT_BIND_WHEN_USE = 3;
+        IBT_BIND_QUEST_ITEM = 4;
+        IBT_BIND_QUEST_ITEM1 = 5; // not used in game
+    }
+
+    enum ItemProtoFlags {
+        IPF_NO_PICKUP = 0; // ?
+        IPF_CONJURED = 1; // Conjured item
+        IPF_HAS_LOOT = 2; // Item can be right clicked to open for loot
+        IPF_HEROIC = 3; // Makes green "Heroic" text appear on item
+        IPF_DEPRECATED = 4; // Cannot equip or use
+        IPF_INDESTRUCTIBLE = 5; // Item can not be destroyed; except by using spell (item can be reagent for spell)
+        IPF_PLAYER_CAST = 6; // Item's spells are castable by players
+        IPF_NO_EQUIP_COOLDOWN = 7; // No default 30 seconds cooldown when equipped
+        IPF_INT_BONUS_INSTEAD = 8; // ?
+        IPF_IS_WRAPPER = 9; // Item can wrap other items
+        IPF_USES_RESOURCES = 10; // ?
+        IPF_MULTI_DROP = 11; // Looting this item does not remove it from available loot
+        IPF_REFUNDABLE = 12; // Item can be returned to vendor for its original cost (extended cost)
+        IPF_PETITION = 13; // Item is guild or arena charter
+        IPF_UNK5 = 14; // Only readable items have this (but not all)
+        IPF_UNK6 = 15; // ?
+        IPF_UNK7 = 16; // ?
+        IPF_UNK8 = 17; // ?
+        IPF_PROSPECTABLE = 18; // Item can be prospected
+        IPF_UNIQUE_EQUIPPED = 19; // You can only equip one of these
+        IPF_UNK9 = 20; // ?
+        IPF_USEABLE_IN_ARENA = 21; // Item can be used during arena match
+        IPF_THROWABLE = 22; // Some Thrown weapons have it (and only Thrown) but not all
+        IPF_USABLE_WHEN_SHAPE_SHIFTED = 23; // Item can be used in shapeshift forms
+        IPF_UNK10 = 24; // ?
+        IPF_SMART_LOOT = 25; // Profession recipes: can only be looted if you meet requirements and don't already know it
+        IPF_NOT_USEABLE_IN_ARENA = 26; // Item cannot be used in arena
+        IPF_BIND_TO_ACCOUNT = 27; // Item binds to account and can be sent only to your own characters
+        IPF_TRIGGERED_CAST = 28; // Spell is cast with triggered flag
+        IPF_MILLABLE = 29; // Item can be milled
+        IPF_UNK11 = 30; // ?
+        IPF_UNK12 = 31; // ?
+    }
+
+    enum ItemFieldFlags {
+        IFF_SOULBOUND = 0; // Item is soulbound and cannot be traded <<--
+        IFF_UNK1 = 1; // ?
+        IFF_UNLOCKED = 2; // Item had lock but can be opened now
+        IFF_WRAPPED = 3; // Item is wrapped and contains another item
+        IFF_UNK2 = 4; // ?
+        IFF_UNK3 = 5; // ?
+        IFF_UNK4 = 6; // ?
+        IFF_UNK5 = 7; // ?
+        IFF_BOP_TRADEABLE = 8; // Allows trading soulbound items
+        IFF_READABLE = 9; // Opens text page when right clicked
+        IFF_UNK6 = 10; // ?
+        IFF_UNK7 = 11; // ?
+        IFF_REFUNDABLE = 12; // Item can be returned to vendor for its original cost (extended cost)
+        IFF_UNK8 = 13; // ?
+        IFF_UNK9 = 14; // ?
+        IFF_UNK10 = 15; // ?
+        IFF_UNK11 = 16; // ?
+        IFF_UNK12 = 17; // ?
+        IFF_UNK13 = 18; // ?
+        IFF_UNK14 = 19; // ?
+        IFF_UNK15 = 20; // ?
+        IFF_UNK16 = 21; // ?
+        IFF_UNK17 = 22; // ?
+        IFF_UNK18 = 23; // ?
+        IFF_UNK19 = 24; // ?
+        IFF_UNK20 = 25; // ?
+        IFF_UNK21 = 26; // ?
+        IFF_UNK22 = 27; // ?
+        IFF_UNK23 = 28; // ?
+        IFF_UNK24 = 29; // ?
+    }
+
+    enum BagFamilyMask {
+        BFM_ARROWS = 0;
+        BFM_BULLETS = 1;
+        BFM_SOUL_SHARDS = 2;
+        BFM_LEATHERWORKING_SUPP = 3;
+        BFM_INSCRIPTION_SUPP = 4;
+        BFM_HERBS = 5;
+        BFM_ENCHANTING_SUPP = 6;
+        BFM_ENGINEERING_SUPP = 7;
+        BFM_KEYS = 8;
+        BFM_GEMS = 9;
+        BFM_MINING_SUPP = 10;
+        BFM_SOULBOUND_EQUIPMENT = 11;
+        BFM_VANITY_PETS = 12;
+        BFM_CURRENCY_TOKENS = 13;
+        BFM_QUEST_ITEMS = 14;
+    }
+
+    enum SocketColor {
+        SC_META = 0;
+        SC_RED = 1;
+        SC_YELLOW = 2;
+        SC_BLUE = 3;
+    }
+
+    enum InventoryType {
+        IT_NON_EQUIP = 0;
+        IT_HEAD = 1;
+        IT_NECK = 2;
+        IT_SHOULDERS = 3;
+        IT_BODY = 4;
+        IT_CHEST = 5;
+        IT_WAIST = 6;
+        IT_LEGS = 7;
+        IT_FEET = 8;
+        IT_WRISTS = 9;
+        IT_HANDS = 10;
+        IT_FINGER = 11;
+        IT_TRINKET = 12;
+        IT_WEAPON = 13;
+        IT_SHIELD = 14;
+        IT_RANGED = 15;
+        IT_CLOAK = 16;
+        IT_WEAPON_2H = 17;
+        IT_BAG = 18;
+        IT_TABARD = 19;
+        IT_ROBE = 20;
+        IT_WEAPON_MAINHAND = 21;
+        IT_WEAPON_OFFHAND = 22;
+        IT_HOLDABLE = 23;
+        IT_AMMO = 24;
+        IT_THROWN = 25;
+        IT_RANGED_RIGHT = 26;
+        IT_QUIVER = 27;
+        IT_RELIC = 28;
+    }
+
+    enum ItemClass {
+        IC_CONSUMABLE = 0;
+        IC_CONTAINER = 1;
+        IC_WEAPON = 2;
+        IC_GEM = 3;
+        IC_ARMOR = 4;
+        IC_REAGENT = 5;
+        IC_PROJECTILE = 6;
+        IC_TRADE_GOODS = 7;
+        IC_GENERIC = 8;
+        IC_RECIPE = 9;
+        IC_MONEY = 10;
+        IC_QUIVER = 11;
+        IC_QUEST = 12;
+        IC_KEY = 13;
+        IC_PERMANENT = 14;
+        IC_JUNK = 15;
+    }
+
+    enum ItemSubClassConsumable {
+        ISCC_CONSUMABLE = 0;
+        ISCC_POTION = 1;
+        ISCC_ELIXIR = 2;
+        ISCC_FLASK = 3;
+        ISCC_SCROLL = 4;
+        ISCC_FOOD = 5;
+        ISCC_ITEM_ENHANCEMENT = 6;
+        ISCC_BANDAGE = 7;
+        ISCC_OTHER = 8;
+    }
+
+    enum ItemSubClassContainer {
+        ISCC_CONTAINER = 0;
+        ISCC_SOUL_CONTAINER = 1;
+        ISCC_HERB_CONTAINER = 2;
+        ISCC_ENCHANTING_CONTAINER = 3;
+        ISCC_ENGINEERING_CONTAINER = 4;
+        ISCC_GEM_CONTAINER = 5;
+        ISCC_MINING_CONTAINER = 6;
+        ISCC_LEATHERWORKING_CONTAINER = 7;
+    }
+
+    enum ItemSubClassWeapon {
+        ISCW_AXE = 0;
+        ISCW_AXE2 = 1;
+        ISCW_BOW = 2;
+        ISCW_GUN = 3;
+        ISCW_MACE = 4;
+        ISCW_MACE2 = 5;
+        ISCW_POLEARM = 6;
+        ISCW_SWORD = 7;
+        ISCW_SWORD2 = 8;
+        ISCW_OBSOLETE = 9;
+        ISCW_STAFF = 10;
+        ISCW_EXOTIC = 11;
+        ISCW_EXOTIC2 = 12;
+        ISCW_FIST = 13;
+        ISCW_MISC = 14;
+        ISCW_DAGGER = 15;
+        ISCW_THROWN = 16;
+        ISCW_SPEAR = 17;
+        ISCW_CROSSBOW = 18;
+        ISCW_WAND = 19;
+        ISCW_FISHING_POLE = 20;
+    }
+
+    enum ItemSubClassGem {
+        ISCG_RED = 0;
+        ISCG_BLUE = 1;
+        ISCG_YELLOW = 2;
+        ISCG_PURPLE = 3;
+        ISCG_GREEN = 4;
+        ISCG_ORANGE = 5;
+        ISCG_META = 6;
+        ISCG_SIMPLE = 7;
+        ISCG_PRISMATIC = 8;
+    }
+
+    enum ItemSubClassArmor {
+        ISCA_MISC = 0;
+        ISCA_CLOTH = 1;
+        ISCA_LEATHER = 2;
+        ISCA_MAIL = 3;
+        ISCA_PLATE = 4;
+        ISCA_BUCKLER = 5;
+        ISCA_SHIELD = 6;
+        ISCA_LIBRAM = 7;
+        ISCA_IDOL = 8;
+        ISCA_TOTEM = 9;
+    }
+
+    enum ItemSubClassReagent {
+        ISCR_REAGENT = 0;
+    }
+
+    enum ItemSubClassProjectile {
+        ISCP_WAND = 0; // ABS
+        ISCP_BOLT = 1; // ABS
+        ISCP_ARROW = 2;
+        ISCP_BULLET = 3;
+        ISCP_THROWN = 4; // ABS
+    }
+
+    enum ItemSubClassTradeGoods {
+        ISCTG_TRADE_GOODS = 0;
+        ISCTG_PARTS = 1;
+        ISCTG_EXPLOSIVES = 2;
+        ISCTG_DEVICES = 3;
+        ISCTG_JEWEL_CRAFTING = 4;
+        ISCTG_CLOTH = 5;
+        ISCTG_LEATHER = 6;
+        ISCTG_METAL_STONE = 7;
+        ISCTG_MEAT = 8;
+        ISCTG_HERB = 9;
+        ISCTG_ELEMENTAL = 10;
+        ISCTG_TRADE_GOODS_OTHER = 11;
+        ISCTG_ENCHANTING = 12;
+        ISCTG_MATERIAL = 13; // Added in 2.4.2
+    }
+
+    enum ItemSubClassGeneric {
+        ISCG_GENERIC = 0;
+    }
+
+    enum ItemSubClassRecipe {
+        ISCR_BOOK = 0;
+        ISCR_LEATHERWORKING_PATTERN = 1;
+        ISCR_TAILORING_PATTERN = 2;
+        ISCR_ENGINEERING_SCHEMATIC = 3;
+        ISCR_BLACKSMITHING = 4;
+        ISCR_COOKING_RECIPE = 5;
+        ISCR_ALCHEMY_RECIPE = 6;
+        ISCR_FIRST_AID_MANUAL = 7;
+        ISCR_ENCHANTING_FORMULA = 8;
+        ISCR_FISHING_MANUAL = 9;
+        ISCR_JEWELCRAFTING_RECIPE = 10;
+    }
+
+    enum ItemSubClassMoney {
+        ISCM_MONEY = 0;
+    }
+
+    enum ItemSubClassQuiver {
+        ISCQ_QUIVER0 = 0; // ABS
+        ISCQ_QUIVER1 = 1; // ABS
+        ISCQ_QUIVER = 2;
+        ISCQ_AMMO_POUCH = 3;
+    }
+
+    enum ItemSubClassQuest {
+        ISCQ_QUEST = 0;
+    }
+
+    enum ItemSubClassKey {
+        ISCK_KEY = 0;
+        ISCK_LOCKPICK = 1;
+    }
+
+    enum ItemSubClassPermanent {
+        ISCP_PERMANENT = 0;
+    }
+
+    enum ItemSubClassJunk {
+        ISCJ_JUNK = 0;
+        ISCJ_REAGENT = 1;
+        ISCJ_PET = 2;
+        ISCJ_HOLIDAY = 3;
+        ISCJ_OTHER = 4;
+        ISCJ_MOUNT = 5;
+    }
+
+    enum ItemSubClassGlyph {
+        ISCG_WARRIOR = 0;
+        ISCG_PALADIN = 1;
+        ISCG_HUNTER = 2;
+        ISCG_ROGUE = 3;
+        ISCG_PRIEST = 4;
+        ISCG_DEATH_KNIGHT = 5;
+        ISCG_SHAMAN = 6;
+        ISCG_MAGE = 7;
+        ISCG_WARLOCK = 8;
+        ISCG_DRUID = 9;
+    }
+
+    message Damage {
+        float min = 1;
+        float max = 2;
+        int32 type = 3; // id from Resistances.dbc
+    }
+
+    message ItemStat {
+        int32 type = 1;
+        int32 value = 2;
+    }
+
+    message Spell {
+        int32 id = 1; // id from Spell.dbc
+        int32 trigger = 2;
+        int32 charges = 3;
+        float ppmRate = 4;
+        int32 cooldown = 5;
+        int32 category = 6; // id from SpellCategory.dbc
+        int32 categoryCooldown = 7;
+    }
+
+    message Socket {
+        int32 color = 1;
+        int32 content = 2;
+    }
+
+    message ItemTemplate {
+        int32 itemId = 1;
+        ItemClass itemClass = 2; // id from ItemClass.dbc
+        int32 itemSubClass = 3; // id from ItemSubClass.dbc
+        int32 soundOverrideSubclass = 4; // < 0: id from ItemSubClass.dbc, used to override weapon sound from actual SubClass
+        string name1 = 5;
+        int32 displayInfoID = 6; // id from ItemDisplayInfo.dbc
+        int32 quality = 7;
+        repeated ItemProtoFlags flags = 8;
+        int32 buyCount = 9;
+        int32 buyPrice = 10;
+        int32 sellPrice = 11;
+        InventoryType inventoryType = 13;
+        int32 allowableClass = 14;
+        int32 allowableRace = 15;
+        int32 itemLevel = 16;
+        int32 requiredLevel = 17;
+        int32 requiredSkill = 18; // id from SkillLine.dbc
+        int32 requiredSkillRank = 19;
+        int32 requiredSpell = 20; // id from Spell.dbc
+        int32 requiredHonorRank = 21;
+        int32 requiredCityRank = 22;
+        int32 requiredReputationFaction = 23; // id from Faction.dbc
+        int32 requiredReputationRank = 24;
+        int32 maxCount = 25;
+        int32 stackable = 26;
+        int32 containerSlots = 27;
+        repeated ItemStat itemStats = 28;
+        repeated Damage damages = 29;
+        int32 armor = 30;
+        int32 holyRes = 31;
+        int32 fireRes = 32;
+        int32 natureRes = 33;
+        int32 frostRes = 34;
+        int32 shadowRes = 35;
+        int32 arcaneRes = 36;
+        int32 delay = 37;
+        int32 ammoType = 38;
+        float rangedModRange = 39;
+        repeated Spell spells = 40;
+        int32 bonding = 41;
+        string description = 42;
+        int32 pageText = 43;
+        int32 languageID = 44;
+        int32 pageMaterial = 45;
+        int32 startQuest = 46; // id from QuestCache.wdb
+        int32 lockID = 47;
+        int32 material = 48; // id from Material.dbc
+        int32 sheath = 49;
+        int32 randomProperty = 50; // id from ItemRandomProperties.dbc
+        int32 randomSuffix = 51; // id from ItemRandomSuffix.dbc
+        int32 block = 52;
+        int32 itemSet = 53; // id from ItemSet.dbc
+        int32 maxDurability = 54;
+        int32 area = 55; // id from AreaTable.dbc
+        int32 map = 56; // id from Map.dbc
+        BagFamilyMask bagFamily = 57; // id from ItemBagFamily.dbc
+        int32 totemCategory = 58; // id from TotemCategory.dbc
+        repeated Socket socket = 59;
+        int32 socketBonus = 60; // id from SpellItemEnchantment.dbc
+        int32 gemProperties = 61; // id from GemProperties.dbc
+        int32 requiredDisenchantSkill = 62;
+        float armorDamageModifier = 63;
+        int32 scriptId = 64;
+        int32 disenchantID = 65;
+        int32 foodType = 66;
+        int32 minMoneyLoot = 67;
+        int32 maxMoneyLoot = 68;
+        int32 duration = 69;
+    }
+}

@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package com.mmo4j.infrastructure.proto;
+
+option csharp_namespace = "MMO4J.Infrastructure.Proto";
+option java_package = "com.mmo4j.infrastructure.proto";
+
+message AuthSocketProto {
+    enum Status {
+        S_UNKNOWN = 0;
+        S_CHALLENGE = 1;
+        S_LOGON_PROOF = 2;
+        S_RECON_PROOF = 3;
+        S_PATCH = 4;
+        S_AUTHED = 5;
+        S_CLOSED = 6;
+    }
+}

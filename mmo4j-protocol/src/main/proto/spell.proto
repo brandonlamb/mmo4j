@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package com.mmo4j.infrastructure.proto;
+
+option csharp_namespace = "MMO4J.Infrastructure.Proto";
+option java_package = "com.mmo4j.infrastructure.proto";
+
+message SpellProto {
+    enum SpellCastFlags {
+        CF_PENDING = 0;
+        CF_UNKNOWN1 = 1;
+        CF_UNKNOWN2 = 2;
+        CF_AMMO = 3;
+        CF_UNKNOWN3 = 4;
+    }
+
+    enum SpellRangeFlag {
+        SRF_DEFAULT = 0;
+        SRF_MELEE = 1; //melee
+        SRF_RANGED = 2; //hunter range and ranged weapon
+    }
+
+    enum SpellNotifyPushType {
+        SNPT_NONE = 0;
+        SNPT_IN_FRONT = 1;
+        SNPT_IN_BACK = 2;
+        SNPT_IN_LINE = 3;
+        SNPT_SRC_CENTER = 4;
+        SNPT_DST_CENTER = 5;
+        SNPT_CASTER_CENTER = 6; //this is never used in grid search
+        SNPT_CHAIN = 7;
+    }
+
+    enum SpellState {
+        SS_NULL = 0;
+        SS_PREPARING = 1;
+        SS_CASTING = 2;
+        SS_FINISHED = 3;
+        SS_IDLE = 4;
+        SS_DELAYED = 5;
+    }
+
+    enum ReplenishType {
+        RT_UNDEFINED = 0;
+        RT_HEALTH = 1;
+        RT_MANA = 2;
+        RT_RAGE = 3;
+    }
+
+    enum SpellTargets {
+        ST_ALLY = 0;
+        ST_ENEMY = 1;
+        ST_ENTRY = 2;
+        ST_CHAINHEAL = 3;
+    }
+}

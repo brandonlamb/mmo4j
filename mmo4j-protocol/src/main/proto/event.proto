@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package com.mmo4j.infrastructure.proto;
+
+option csharp_namespace = "MMO4J.Infrastructure.Proto";
+option java_package = "com.mmo4j.infrastructure.proto";
+
+message Event {
+    message PlayerMoved {
+        int64 playerId = 1;
+        int32 x = 2;
+        int32 y = 3;
+    }
+
+    message PlayerSettingsRetrieved {
+        int64 playerId = 1;
+        bool active = 2;
+    }
+
+    message AuthenticateResponse {
+        bool authenticated = 1;
+        int64 sessionId = 2;
+    }
+
+    message ListRealmsResponse {
+        message Realm {
+            string ip = 1;
+            string name = 2;
+        }
+
+        repeated Realm realms = 1;
+    }
+
+    oneof event_oneof {
+        PlayerMoved playerMoved = 1;
+        PlayerSettingsRetrieved playerSettingsRetrieved = 2;
+        AuthenticateResponse authenticateResponse = 3;
+    }
+}

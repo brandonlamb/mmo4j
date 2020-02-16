@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package com.mmo4j.infrastructure.proto;
+
+option csharp_namespace = "MMO4J.Infrastructure.Proto";
+option java_package = "com.mmo4j.infrastructure.proto";
+
+message AccountTypesProto {
+    enum AccountTypes {
+        AT_PLAYER = 0;
+        AT_MODERATOR = 1;
+        AT_GAME_MASTER = 2;
+        AT_ADMINISTRATOR = 3;
+        AT_CONSOLE = 4; // must be always last in list, accounts must have less security level always also
+    }
+}
