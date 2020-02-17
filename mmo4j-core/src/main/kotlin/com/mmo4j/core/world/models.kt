@@ -2,7 +2,8 @@ package com.mmo4j.core.world
 
 data class WorldConfig(
   val playerLimit: Int,
-  val rate: RateConfig
+  val rate: RateConfig,
+  val auction: AuctionConfig
 ) {
   data class RateConfig(
     val health: Double,
@@ -10,6 +11,9 @@ data class WorldConfig(
     val focus: Double,
     val energy: Double,
     val petXpKill: Double,
+    val honor: Double,
+    val instanceResetTime: Double,
+    val talent: Double,
     val rage: RageConfig,
     val runicPower: RunicPowerConfig,
     val skill: SkillConfig,
@@ -17,7 +21,10 @@ data class WorldConfig(
     val experience: ExperienceConfig,
     val reputation: ReputationConfig,
     val creature: CreatureConfig,
-    val rest: RestConfig
+    val rest: RestConfig,
+    val damage: DamageConfig,
+    val auction: AuctionConfig,
+    val mining: MiningConfig
   ) {
     data class RageConfig(val income: Double, val loss: Double)
     data class RunicPowerConfig(val income: Double, val loss: Double)
@@ -71,5 +78,15 @@ data class WorldConfig(
     data class RestConfig(val inGame: Double, val offline: OfflineConfig) {
       data class OfflineConfig(val inTavernOrCity: Double, val inWilderness: Double)
     }
+
+    data class DamageConfig(val fall: Double)
+
+    data class AuctionConfig(val time: Double, val deposit: Double, val cut: Double)
+
+    data class MiningConfig(val amount: Double, val next: Double)
+  }
+
+  data class AuctionConfig(val deposit: DepositConfig) {
+    data class DepositConfig(val min: Int)
   }
 }
