@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package com.mmo4j.infrastructure.proto;
+
+option csharp_namespace = "MMO4J.Infrastructure.Proto";
+option java_package = "com.mmo4j.infrastructure.proto";
+
+message SocialProto {
+    enum FriendStatus {
+        FS_OFFLINE = 0;
+        FS_ONLINE = 1;
+        FS_AFK = 2;
+        FS_UNK3 = 3;
+        FS_DND = 4;
+    }
+
+    enum SocialFlag {
+        SF_FRIEND = 0;
+        SF_IGNORED = 1;
+        SF_MUTED = 2; // guessed
+        SF_RECRUIT_A_FRIEND = 3; // Recruit-A-Friend
+    }
+
+    enum FriendsResult {
+        FR_DB_ERROR = 0; // ERR_FR_NOT_FOUND
+        FR_LIST_FULL = 1;
+        FR_ONLINE = 2;
+        FR_OFFLINE = 3;
+        FR_NOT_FOUND = 4; // ERR_FR_NOT_FOUND
+        FR_REMOVED = 5;
+        FR_ADDED_ONLINE = 6; // ERR_FR_ADDED_S
+        FR_ADDED_OFFLINE = 7;
+        FR_ALREADY = 8;
+        FR_SELF = 9;
+        FR_ENEMY = 10;
+        FR_IGNORE_FULL = 11;
+        FR_IGNORE_SELF = 12;
+        FR_IGNORE_NOT_FOUND = 13;
+        FR_IGNORE_ALREADY = 14;
+        FR_IGNORE_ADDED = 15;
+        FR_IGNORE_REMOVED = 16;
+        FR_IGNORE_AMBIGUOUS = 17; // That name is ambiguous; type more of the player's server name
+        FR_MUTE_FULL = 18;
+        FR_MUTE_SELF = 19;
+        FR_MUTE_NOT_FOUND = 20;
+        FR_MUTE_ALREADY = 21;
+        FR_MUTE_ADDED = 22;
+        FR_MUTE_REMOVED = 23;
+        FR_MUTE_AMBIGUOUS = 24; // ERR_VOICE_IGNORE_AMBIGUOUS
+        FR_UNK7 = 25; // ERR_MAX_VALUE (nothing is showed)
+        FR_UNKNOWN = 26; // Unknown friend response from server
+    }
+
+    message FriendInfo {
+        FriendStatus status = 1;
+        int32 flags = 2;
+        int32 area = 3;
+        int32 level = 4;
+        int32 class = 5; // TODO - import character class enum
+        string note = 6;
+    }
+}

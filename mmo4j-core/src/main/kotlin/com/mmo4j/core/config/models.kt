@@ -138,3 +138,8 @@ data class WorldConfig(
   val worldBossLevelDiff: Int,
   val worldServerPort: Int
 )
+
+data class SocialConfig(
+  val friendLimit: Int,
+  val ignoreLimit: Int
+)
