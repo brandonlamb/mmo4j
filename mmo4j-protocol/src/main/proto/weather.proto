@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package com.mmo4j.infrastructure.proto;
+
+option csharp_namespace = "MMO4J.Infrastructure.Proto";
+option java_package = "com.mmo4j.infrastructure.proto";
+
+message WeatherProto {
+    enum WeatherType {
+        WT_FINE = 0;
+        WT_RAIN = 1;
+        WT_SNOW = 2;
+        WT_SANDSTORM = 3;
+        WT_THUNDERS = 4;
+        WT_BLACK_RAIN = 5;
+    }
+
+    enum WeatherState {
+        WS_FINE = 0;
+        WS_LIGHT_RAIN = 1;
+        WS_MEDIUM_RAIN = 2;
+        WS_HEAVY_RAIN = 3;
+        WS_LIGHT_SNOW = 4;
+        WS_MEDIUM_SNOW = 5;
+        WS_HEAVY_SNOW = 6;
+        WS_LIGHT_SANDSTORM = 7;
+        WS_MEDIUM_SANDSTORM = 8;
+        WS_HEAVY_SANDSTORM = 9;
+        WS_THUNDERS = 10;
+        WS_BLACK_RAIN = 11;
+    }
+}
