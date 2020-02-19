@@ -2,6 +2,10 @@ package com.mmo4j.core.config
 
 import java.time.Duration
 
+data class AccountConfig(
+  val maxAccountLength: Int
+)
+
 data class WorldConfig(
   val activeWeather: Boolean,
   val addonChannel: Boolean,
