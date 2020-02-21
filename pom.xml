@@ -160,6 +160,11 @@
       <artifactId>wire-runtime</artifactId>
       <version>3.1.0</version>
     </dependency>
+    <dependency>
+      <groupId>com.mmo4j</groupId>
+      <artifactId>kcp-java</artifactId>
+      <version>0.1-SNAPSHOT</version>
+    </dependency>
   </dependencies>
   <build>
     <finalName>${project.artifactId}-${project.version}</finalName>
