@@ -2,6 +2,10 @@ package com.mmo4j.core.config
 
 import java.time.Duration
 
+data class AccountConfig(
+  val maxAccountLength: Int
+)
+
 data class WorldConfig(
   val activeWeather: Boolean,
   val addonChannel: Boolean,
@@ -137,4 +141,9 @@ data class WorldConfig(
   val worldBossCreatureSpellDamageRate: Float,
   val worldBossLevelDiff: Int,
   val worldServerPort: Int
+)
+
+data class SocialConfig(
+  val friendLimit: Int,
+  val ignoreLimit: Int
 )

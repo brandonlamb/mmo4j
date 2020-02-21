@@ -19,7 +19,7 @@ class Weather(
 
   }
 
-  fun setWeather(weatherType: WeatherType, weatherGrade: Float, map: Int, permanentWeather: Boolean) {
+  fun setWeather(weatherType: WeatherType, weatherGrade: Float, permanentWeather: Boolean) {
     this.permanentWeather = permanentWeather
 
     if (this.weatherType == weatherType && this.weatherGrade == weatherGrade) {

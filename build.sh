@@ -1,4 +1,4 @@
 #!/bin/sh
 
-mvn clean package install
+mvn clean install
 

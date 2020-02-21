@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package com.mmo4j.infrastructure.proto;
+
+option csharp_namespace = "MMO4J.Infrastructure.Proto";
+option java_package = "com.mmo4j.infrastructure.proto";
+
+message AccountProto {
+    enum AccountOpResult
+    {
+        AOR_OK = 0;
+        AOR_NAME_TOO_LONG = 1;
+        AOR_PASS_TOO_LONG = 2;
+        AOR_NAME_ALREADY_EXIST = 3;
+        AOR_NAME_NOT_EXIST = 4;
+        AOR_DB_INTERNAL_ERROR = 5;
+    }
+}
