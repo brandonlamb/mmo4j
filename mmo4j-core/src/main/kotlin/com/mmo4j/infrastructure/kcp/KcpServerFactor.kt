@@ -4,14 +4,18 @@ import com.mmo4j.infrastructure.config.UdpServerConfig
 import com.mmo4j.kcp.netty.ChannelOptionHelper
 import com.mmo4j.kcp.netty.UkcpChannelOption
 import com.mmo4j.kcp.netty.UkcpServerChannel
+import io.micronaut.context.annotation.Bean
 import io.micronaut.context.annotation.Factory
 import io.netty.bootstrap.UkcpServerBootstrap
 import io.netty.channel.ChannelOption
 import io.netty.channel.nio.NioEventLoopGroup
 import io.netty.util.internal.SocketUtils
+import javax.inject.Singleton
 
 @Factory
 class KcpServerFactor {
+  @Bean
+  @Singleton
   fun create(c: UdpServerConfig): UkcpServerBootstrap {
     val bootstrap = UkcpServerBootstrap()
       .group(NioEventLoopGroup(4))
